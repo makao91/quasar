@@ -7,7 +7,7 @@ import { defineComponent } from 'vue';
 export default defineComponent({
 
     mounted() {
-      this.$store.dispatch('loginStore/handleAuthUser', this.$router)
+      this.$store.dispatch('loginStore/handleAuthUser', this.$router).catch(err => console.log(err))
     }
   }
 )

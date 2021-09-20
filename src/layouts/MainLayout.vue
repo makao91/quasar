@@ -51,7 +51,6 @@
 import { defineComponent} from 'vue'
 import { useStore } from 'vuex'
 
-
 export default defineComponent({
   name: 'MainLayout',
   computed: {
@@ -60,7 +59,7 @@ export default defineComponent({
         if (current_path == '/') return 'Witamy w chaterii';
         else if (current_path == '/chat') return 'Chat';
         else if (current_path == '/auth') return 'Login';
-        else return "";
+        else return '';
     }
   },
   methods: {
@@ -70,10 +69,10 @@ export default defineComponent({
       }
     },
     toLoginPage() : void {
-        this.$router.push('/auth').catch(err => console.log(err.message)).then(() => console.log('success'))
+        this.$router.push('/auth').catch(err => console.log(err))
     },
     logOut() :void{
-      this.$store.dispatch('loginStore/logoutUser')
+      this.$store.dispatch('loginStore/logoutUser').catch(err => console.log(err))
     }
   },
   setup() {

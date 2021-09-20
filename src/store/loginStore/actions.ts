@@ -11,7 +11,8 @@ import {
   ref,
   signInWithEmailAndPassword,
   child,
-  update
+  update,
+  onChildAdded
 } from "boot/firebase";
 
 const actions: ActionTree<ExampleStateInterface, StateInterface> = {
@@ -64,6 +65,7 @@ const actions: ActionTree<ExampleStateInterface, StateInterface> = {
                 online: true
               }
             })
+            dispatch('firebaseGetUsers')
             router.push('/')
           }
         }).catch((error) => {
@@ -85,6 +87,18 @@ const actions: ActionTree<ExampleStateInterface, StateInterface> = {
   },
   firebaseUpdateUser({}, payload){
     update(ref(firebase_db, 'users/' + payload.user_id), payload.updates)
+  },
+  firebaseGetUsers({commit}){
+    const db_ref = ref(firebase_db, 'users');
+
+    onChildAdded(db_ref, (data) => {
+      let user_id = data.key
+      let user_details = data.val()
+      commit('addUser', {
+        user_id,
+        user_details
+      })
+    });
   }
 };
 

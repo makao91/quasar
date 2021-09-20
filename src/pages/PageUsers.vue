@@ -29,27 +29,25 @@
 </template>
 
 <script lang="ts">
+import { defineComponent} from 'vue'
 
-const users = [ {
-  id: 1,
-  name: 'Ruddy Jedrzej',
-  online: true,
-}, {
-  id: 2,
-  name: 'Mallorie Alessandrini',
-  online: false,
-}, {
-  id: 3,
-  name: 'Elisabetta Wicklen',
-  online: true,
-}, ]
+export default defineComponent({
+  props:{
+    user:{
+      id: String,
 
-export default {
-  setup () {
-    return {
-      users,
     }
+  },
+  computed:{
+    getUsersFromState () {
+      return this.$store.getters["loginStore/users"].map((data) =>{
+        id: data.user_id,
+      })
+    }
+  },
+  setup () {
+
   }
 }
-
+)
 </script>

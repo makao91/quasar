@@ -1,10 +1,24 @@
+interface UserDetails {
+  user_id: string,
+  name: string,
+  email: string
+}
+interface UserDetailsAndActivity {
+  online: boolean,
+  name: string,
+  email: string
+}
+
 export interface ExampleStateInterface {
-  user_details: [];
+  user_details: UserDetails,
+  users: [UserDetailsAndActivity]
 }
 
 function state(): ExampleStateInterface {
-  return {
-    user_details: []
+  // @ts-ignore
+  return <ExampleStateInterface>{
+    user_details: {},
+    users: []
   }
 }
 

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import {defineComponent, ref} from 'vue';
+import {defineComponent} from 'vue';
 import { useStore } from 'vuex'
 export default defineComponent({
   name: 'LoginRegister',
@@ -23,9 +23,9 @@ export default defineComponent({
   methods: {
     submitForm() {
       if (this.tab === 'login') {
-        this.$store.dispatch('loginStore/loginUser', this.form_data)
+        this.$store.dispatch('loginStore/loginUser', this.form_data).catch(err => console.log(err))
       } else{
-        this.$store.dispatch('loginStore/registerUser', this.form_data)
+        this.$store.dispatch('loginStore/registerUser', this.form_data).catch(err => console.log(err))
       }
     }
   },
