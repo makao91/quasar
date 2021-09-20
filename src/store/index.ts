@@ -1,4 +1,5 @@
 import { store } from 'quasar/wrappers'
+import loginStore from './loginStore'
 import { InjectionKey } from 'vue'
 import {
   createStore,
@@ -38,7 +39,7 @@ export const storeKey: InjectionKey<VuexStore<StateInterface>> = Symbol('vuex-ke
 export default store(function (/* { ssrContext } */) {
   const Store = createStore<StateInterface>({
     modules: {
-      // example
+      loginStore
     },
 
     // enable strict mode (adds overhead!)

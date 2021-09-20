@@ -33,11 +33,12 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import LoginRegister from 'components/LoginRegister.vue';
 
 export default defineComponent({
   name: 'PageAuth',
   components: {
-    'login-register' : require('components/LoginRegister.vue').default
+    LoginRegister
   },
   setup() {
     return {

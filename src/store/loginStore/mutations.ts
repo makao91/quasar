@@ -1,9 +1,11 @@
+/* eslint-disable */
 import { MutationTree } from 'vuex';
 import { ExampleStateInterface } from './state';
 
 const mutation: MutationTree<ExampleStateInterface> = {
-  someMutation (/* state: ExampleStateInterface */) {
-    // your code
+  setUserDetails (state, payload) {
+    console.log(payload)
+    state.user_details = payload
   }
 };
 

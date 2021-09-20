@@ -45,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, toRefs} from 'vue';
+import {defineComponent, ref} from 'vue';
 
 export default defineComponent({
   name: 'PageChat',

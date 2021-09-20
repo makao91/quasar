@@ -1,0 +1,40 @@
+{
+  "users" : {
+    "user_id_1": {
+      "name" : "Waldek",
+      "email": "test@test.pl",
+      "online": true
+    },
+    "user_id_2": {
+      "name" : "Roman",
+      "email": "roman@test.pl",
+      "online": true
+    }
+  },
+  "chats": {
+    "user_id_1":{
+      "user_id_2": {
+        "message_id_1": {
+          "text_field" : "kupka spupka",
+          "from": "them"
+        },
+        "message_id_2": {
+          "text_field" : "marynowane pikle",
+          "from": "them"
+        }
+      }
+    },
+    "user_id_2":{
+      "user_id_1": {
+        "message_id_1": {
+          "text_field" : "chyba twoja",
+          "from": "me"
+        },
+        "message_id_2": {
+          "text_field" : "stara",
+          "from": "them"
+        }
+      }
+    }
+  }
+}

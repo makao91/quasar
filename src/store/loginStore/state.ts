@@ -1,10 +1,10 @@
 export interface ExampleStateInterface {
-  prop: boolean;
+  user_details: [];
 }
 
 function state(): ExampleStateInterface {
   return {
-    prop: false
+    user_details: []
   }
 }
 

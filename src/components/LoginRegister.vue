@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
   <q-form @submit="submitForm">
     <q-input outlined class="q-mb-md" v-model="form_data.name" label="Name" v-if="tab === 'register'" />
@@ -12,36 +13,40 @@
 
 <script>
 import {defineComponent, ref} from 'vue';
-
+import { useStore } from 'vuex'
 export default defineComponent({
   name: 'LoginRegister',
-  components: {  },
   props: {
-    tab : String
+    tab: String
   },
+
   methods: {
     submitForm() {
       if (this.tab === 'login') {
-        console.log('login user')
-      } else
-        console.log('register user')
+        this.$store.dispatch('loginStore/loginUser', this.form_data)
+      } else{
+        this.$store.dispatch('loginStore/registerUser', this.form_data)
+      }
     }
   },
-  setup() {
-    const form_data = ref([{
-      name: '',
-      email: '',
-      password: ''
-      }
-    ]);
+  data(){
     return {
-      form_data,
+      form_data: {
+        name: 'Marcin',
+        email: 'm.kapela91@gmail.com',
+        password: 'kokoko',
+      }
+    }
+  },
+
+  setup() {
+    const $store = useStore();
+
+    return {
+      $store
     }
   }
 });
-
-
-
 
 </script>
 

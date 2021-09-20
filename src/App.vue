@@ -5,6 +5,10 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'App'
-})
+
+    mounted() {
+      this.$store.dispatch('loginStore/handleAuthUser', this.$router)
+    }
+  }
+)
 </script>
