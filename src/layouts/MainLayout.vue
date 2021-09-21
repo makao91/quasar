@@ -16,7 +16,6 @@
 
         <q-btn
           v-if="!this.$store.state.loginStore.user_details.user_id"
-          @click="toLoginPage"
           class="absolute-right q-pr-md"
           no-caps
           flat
@@ -25,7 +24,7 @@
           label="Login" />
         <q-btn
           v-else
-          @click="logOut"
+          @click="logoutUser"
           class="absolute-right q-pr-md"
           no-caps
           flat
@@ -36,7 +35,6 @@
           Logout<br>
           {{ this.$store.state.loginStore.user_details.name }}
         </q-btn>
-
       </q-toolbar>
     </q-header>
 
@@ -49,7 +47,6 @@
 
 <script lang="ts">
 import { defineComponent} from 'vue'
-import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -67,20 +64,12 @@ export default defineComponent({
       if (this.$route.fullPath.includes('/chat')) {
         this.$router.go(-1)
       }
+      this.$store.commit('loginStore/clearMessages', [])
     },
-    toLoginPage() : void {
-        this.$router.push('/auth').catch(err => console.log(err))
-    },
-    logOut() :void{
+    logoutUser() {
+      console.log('click')
       this.$store.dispatch('loginStore/logoutUser').catch(err => console.log(err))
     }
   },
-  setup() {
-    const $store = useStore();
-
-    return {
-      $store
-    }
-  }
 })
 </script>

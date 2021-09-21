@@ -4,23 +4,23 @@
       separator
       >
       <q-item
-        v-for="user in users" :key="user.id"
+        v-for="user in users" :key="user.user_id"
         clickable
         v-ripple
-        to="/chat">
+        :to="'/chat/' + user.user_id">
         <q-item-section avatar>
           <q-avatar color="primary" text-color="white">
-            {{ user.name.charAt(0) }}
+            {{ user.user_details.name.charAt(0) }}
           </q-avatar>
         </q-item-section>
 
         <q-item-section>
-          <q-item-label>{{ user.name }}</q-item-label>
+          <q-item-label>{{ user.user_details.name }}</q-item-label>
         </q-item-section>
 
         <q-item-section side>
-          <q-badge :color="user.online ? 'light-green-7' : 'grey-6'">
-            {{ user.online ? 'Online' : 'Offline'}}
+          <q-badge :color="user.user_details.online ? 'light-green-7' : 'grey-6'">
+            {{ user.user_details.online ? 'Online' : 'Offline'}}
           </q-badge>
         </q-item-section>
       </q-item>
@@ -29,25 +29,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent} from 'vue'
+import { defineComponent, computed, onMounted } from 'vue'
+import { useStore } from '../store'
+import { useRoute } from "vue-router";
 
 export default defineComponent({
-  props:{
-    user:{
-      id: String,
+    setup() {
+      const store = useStore()
+      const users = computed(() : [] => store.getters['loginStore/users'])
 
-    }
+      return {
+        users
+      }
+   }
   },
-  computed:{
-    getUsersFromState () {
-      return this.$store.getters["loginStore/users"].map((data) =>{
-        id: data.user_id,
-      })
-    }
-  },
-  setup () {
-
-  }
-}
 )
 </script>

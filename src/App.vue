@@ -2,12 +2,21 @@
   <router-view />
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { onMounted } from 'vue';
+import { useStore } from './store'
+import { useRouter } from 'vue-router';
 
-export default defineComponent({
+export default ({
+    setup() {
+      const store = useStore()
+      const router = useRouter()
 
-    mounted() {
-      this.$store.dispatch('loginStore/handleAuthUser', this.$router).catch(err => console.log(err))
+      onMounted(() => {
+        store.dispatch('loginStore/handleAuthUser', router).catch(err => console.log(err))
+      })
+
+      return{
+      }
     }
   }
 )

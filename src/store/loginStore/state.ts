@@ -8,17 +8,30 @@ interface UserDetailsAndActivity {
   name: string,
   email: string
 }
+export interface UserDetailsAndActivityAndId {
+  user_details: UserDetailsAndActivity,
+  user_id: string,
+}
+export interface MessageInfo {
+  message_id: string,
+  message_details: Message,
+}
+export interface Message {
+  from: string,
+  text_field: string,
+}
 
 export interface ExampleStateInterface {
   user_details: UserDetails,
-  users: [UserDetailsAndActivity]
+  users: [UserDetailsAndActivityAndId],
+  messages: [MessageInfo],
 }
 
 function state(): ExampleStateInterface {
-  // @ts-ignore
   return <ExampleStateInterface>{
     user_details: {},
-    users: []
+    users: [{}],
+    messages: [{}]
   }
 }
 

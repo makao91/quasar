@@ -3,7 +3,7 @@
 import { initializeApp } from 'firebase/app';
 // TODO: Add SDKs for Firebase products that you want to use
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase, ref, set, get, child, update, onChildAdded } from 'firebase/database';
+import { getDatabase, ref, set, get, child, update, onChildAdded, onChildChanged } from 'firebase/database';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -21,4 +21,17 @@ const app = initializeApp(firebaseConfig);
 // let firebase_auth = initializeApp.auth.Auth.auth()
 let firebase_db = getDatabase();
 
-export { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, firebase_db, ref, set, get, child, update,onChildAdded, signInWithEmailAndPassword }
+export {
+  getAuth,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  firebase_db,
+  ref,
+  set,
+  get,
+  child,
+  update,
+  onChildAdded,
+  onChildChanged,
+  signInWithEmailAndPassword
+}

@@ -13,7 +13,6 @@
 
 <script>
 import {defineComponent} from 'vue';
-import { useStore } from 'vuex'
 export default defineComponent({
   name: 'LoginRegister',
   props: {
@@ -26,6 +25,7 @@ export default defineComponent({
         this.$store.dispatch('loginStore/loginUser', this.form_data).catch(err => console.log(err))
       } else{
         this.$store.dispatch('loginStore/registerUser', this.form_data).catch(err => console.log(err))
+        setTimeout(() => {  this.$store.dispatch('loginStore/handleAuthUser', this.$router).catch(err => console.log(err)); }, 1000);
       }
     }
   },
@@ -33,19 +33,11 @@ export default defineComponent({
     return {
       form_data: {
         name: 'Marcin',
-        email: 'm.kapela91@gmail.com',
+        email: 'kokos@gmail.com',
         password: 'kokoko',
       }
     }
   },
-
-  setup() {
-    const $store = useStore();
-
-    return {
-      $store
-    }
-  }
 });
 
 </script>

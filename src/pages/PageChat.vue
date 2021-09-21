@@ -6,12 +6,12 @@
     <div class="class q-pa-md column col justify-end">
         <q-chat-message
           v-for="(message, index) in messages" :key="index"
-          :name="message.from"
-          :text="[message.text]"
+          :name="message.message_detail.from"
+          :text="[message.message_detail.text_field]"
           stamp="7 minutes ago"
-          :sent="message.from === 'me'"
-          :bg-color="message.from === 'me' ? 'amber-7' : 'indigo-5'"
-          :text-color="message.from === 'me' ? color='black' : color='white'"
+          :sent="message.message_detail.from === 'me'"
+          :bg-color="message.message_detail.from === 'me' ? 'amber-7' : 'indigo-5'"
+          :text-color="message.message_detail.from === 'me' ? color='black' : color='white'"
         />
     </div>
   </q-page>
@@ -45,40 +45,35 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from 'vue';
+import {computed, defineComponent, onMounted, ref} from 'vue';
+import {useRoute} from "vue-router";
+import {useStore} from "src/store";
 
 export default defineComponent({
   name: 'PageChat',
   components: {  },
 
   setup() {
+    const route = useRoute()
+    const store = useStore()
     const new_message = ref('');
-    const messages = ref([
-      {
-        text: 'Space',
-        from: 'me',
-      },
-      {
-        text: 'The final frontier',
-        from: 'them',
-      },
-      {
-        text: 'These are the voyagers of the starship Enterprise',
-        from: 'others',
-      },
-    ])
+    const messages = computed(() : [] => store.getters['loginStore/messages'])
+
+    onMounted(() => {
+      store.dispatch('loginStore/firebaseFetchMessages', route.params.another_user_id).catch(err => console.log(err))
+    })
 
     return {
       new_message,
       messages,
 
-      onSubmit() {
-        messages.value.push({
-          text: new_message.value,
-          from: 'me'
-        });
-        new_message.value = '';
-      },
+      // onSubmit() {
+      //   messages.value.push({
+      //     text_field: new_message.value,
+      //     from: 'me'
+      //   });
+      //   new_message.value = '';
+      // },
     }
   }
 });
