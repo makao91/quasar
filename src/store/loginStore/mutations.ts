@@ -25,6 +25,18 @@ const mutation: MutationTree<ExampleStateInterface> = {
   },
   clearMessages(state, payload) {
     state.messages = payload
+  },
+  getLoggedUserName(state) : string {
+    return state.user_details.name
+  },
+  getChattedUserName(state, payload) : string {
+    const user =  state.users.find((user) => {
+      return user.user_id === payload
+    })
+    if (user) {
+      return user.user_details.name
+    }
+    return 'unknown'
   }
 };
 

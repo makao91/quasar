@@ -29,9 +29,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useStore } from '../store'
-import { useRoute } from "vue-router";
 
 export default defineComponent({
     setup() {

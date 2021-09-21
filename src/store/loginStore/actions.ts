@@ -2,6 +2,7 @@
 import { ActionTree } from 'vuex';
 import { StateInterface } from '../index';
 import { ExampleStateInterface } from './state';
+import Reference from 'firebase/database'
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -17,6 +18,9 @@ import {
   onAuthStateChanged
 } from "boot/firebase";
 
+ let message_ref
+
+
 const actions: ActionTree<ExampleStateInterface, StateInterface> = {
   registerUser ({ dispatch }, payload) {
     createUserWithEmailAndPassword(getAuth(), payload.email, payload.password).then((userCredential) => {
@@ -27,7 +31,6 @@ const actions: ActionTree<ExampleStateInterface, StateInterface> = {
         online: true
       })
     }).catch(error => {
-      console.log(error.messsage)
     })
   },
   loginUser ({ commit }, payload) {
@@ -55,14 +58,12 @@ const actions: ActionTree<ExampleStateInterface, StateInterface> = {
       if (user) {
         get(child(ref_DB, 'users/' + user.uid)).then((snapshot) => {
           if (snapshot.exists()) {
-            console.log('auth')
 
             commit('setUserDetails', {
               name: snapshot.val().name,
               email: snapshot.val().email,
               user_id: user.uid
             })
-            console.log('ile razy')
             dispatch('firebaseUpdateUser', {
               user_id: user.uid,
               updates: {
@@ -73,7 +74,6 @@ const actions: ActionTree<ExampleStateInterface, StateInterface> = {
             router.push('/')
           }
         }).catch((error) => {
-          console.error(error);
           }
         )
       }
@@ -86,7 +86,6 @@ const actions: ActionTree<ExampleStateInterface, StateInterface> = {
         })
         commit('setUserDetails', {})
         commit('clearUsers', [])
-        commit('clearMessages', [])
         router.push('/auth')
       }
     })
@@ -118,8 +117,9 @@ const actions: ActionTree<ExampleStateInterface, StateInterface> = {
   },
   firebaseFetchMessages({ state, commit }, another_user_id){
     let user_id = state.user_details.user_id
-    const db_ref = ref(firebase_db, 'chats/' + user_id + '/' + another_user_id);
-    onChildAdded(db_ref, (data) => {
+    message_ref = ref(firebase_db, 'chats/' + user_id + '/' + another_user_id);
+
+    onChildAdded(message_ref, (data) => {
       let message_id = data.key
       let message_detail = data.val()
       commit('addMessage', {
@@ -127,6 +127,12 @@ const actions: ActionTree<ExampleStateInterface, StateInterface> = {
         message_detail
       })
     });
+  },
+  firebaseStopFetchMessages({ commit }) {
+    if (message_ref){
+      message_ref.off()
+      commit('clearMessages', [])
+    }
   }
 };
 
