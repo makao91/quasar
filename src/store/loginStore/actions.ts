@@ -2,7 +2,6 @@
 import { ActionTree } from 'vuex';
 import { StateInterface } from '../index';
 import { ExampleStateInterface } from './state';
-import Reference from 'firebase/database'
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -15,7 +14,8 @@ import {
   update,
   onChildAdded,
   onChildChanged,
-  onAuthStateChanged
+  onAuthStateChanged,
+  push
 } from "boot/firebase";
 
  let message_ref
@@ -133,6 +133,14 @@ const actions: ActionTree<ExampleStateInterface, StateInterface> = {
       message_ref.off()
       commit('clearMessages', [])
     }
+  },
+  firebaseSendMessage({ state }, payload) {
+    const db_ref = ref(firebase_db, 'chats/' + state.user_details.user_id + '/' + payload.other_user_id);
+    push(db_ref, payload.message)
+
+    payload.message.from = 'them';
+    const db_ref_othe_user = ref(firebase_db, 'chats/' + payload.other_user_id + '/' + state.user_details.user_id);
+    push(db_ref_othe_user, payload.message)
   }
 };
 

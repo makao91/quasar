@@ -1,0 +1,13 @@
+export default {
+  computed: {
+    otherUserDetails(){
+      if (this.$store.state.loginStore.valueOf().users.find((user) => {
+        return user.user_id === this.$route.params.another_user_id})) {
+
+        return this.$store.state.loginStore.valueOf().users.find((user) => {
+          return user.user_id === this.$route.params.another_user_id
+        })
+      }
+    }
+  }
+}

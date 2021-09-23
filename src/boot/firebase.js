@@ -3,7 +3,7 @@
 import { initializeApp } from 'firebase/app';
 // TODO: Add SDKs for Firebase products that you want to use
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase, ref, set, get, child, update, onChildAdded, onChildChanged } from 'firebase/database';
+import { getDatabase, ref, set, get, child, update, onChildAdded, onChildChanged, push } from 'firebase/database';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -32,5 +32,6 @@ export {
   update,
   onChildAdded,
   onChildChanged,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  push
 }

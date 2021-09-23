@@ -47,14 +47,17 @@
 
 <script lang="ts">
 import { defineComponent} from 'vue'
+import mixinOtherUserDetails from 'src/mixins/mixin-other-user-details'
+
 
 export default defineComponent({
+  mixins: [mixinOtherUserDetails],
   name: 'MainLayout',
   computed: {
     title() {
       let current_path = this.$route.fullPath;
         if (current_path == '/') return 'Witamy w chaterii';
-        else if (current_path == '/chat') return 'Chat';
+        else if (current_path.includes('/chat')) return this.otherUserDetails.user_details.name;
         else if (current_path == '/auth') return 'Login';
         else return '';
     }
